@@ -10,6 +10,7 @@ import com.zhao.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,11 @@ public class PersonController {
     public String update(){
         return "update";
     }
+    @RequestMapping("person/add")
+    public String add(){
+        return "add";
+    }
+
     @RequestMapping("/main")
     public
     String main(Model model){
@@ -66,6 +72,16 @@ public class PersonController {
     public @ResponseBody int updatess(Integer id,String name,String sex,String hobbys,String none) {
         System.out.println("修改参数" + id + name + sex + hobbys + none);
         int i = personService.updatess(id, name, sex, hobbys, none);
+        if (i>0) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+    @RequestMapping("insertese")
+    public @ResponseBody int add(String name, String sex, String hobbys, String none){
+        System.out.println("新增参数"+name + sex + hobbys + none);
+        int i=personService.addses(name,sex,hobbys,none);
         if (i>0) {
             return 1;
         }else {

@@ -46,7 +46,15 @@
                 iconCls: 'icon-add',
                 text:'新增',
                 handler: function(){
-
+                    $('#person_add').dialog({
+                        title:'新增',
+                        width:500,
+                        height:400,
+                        closed: false,
+                        cache: false,
+                        href: 'person/add',
+                        modal: true
+                    })
                 }
             },'-',{
                 iconCls: 'icon-remove',
@@ -68,14 +76,29 @@
                         modal: true,
                         onLoad:function () {
                             $("#person_edit :text:eq(0)").val($("#person_table").datagrid("getSelected").name);
-                            $("#person_edit :text:eq(1)").val($("#person_table").datagrid("getSelected").hobbys);
-                            $("#person_edit :text:eq(2)").val($("#person_table").datagrid("getSelected").none);
+                            /*$("#cc").val($("#person_table").datagrid("getSelected").hobbys);*/
+                            $("#person_edit :text:eq(1)").val($("#person_table").datagrid("getSelected").none);
                             $("#person_edit :hidden:eq(0)").val($("#person_table").datagrid("getSelected").id);
+                            if('读书' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o1").attr("selected","selected");
+                            }else if('音乐' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o2").attr("selected","selected");
+                            }else if('舞蹈' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o3").attr("selected","selected");
+                            }else if('锤人' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o4").attr("selected","selected");
+                            }else if('打游戏' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o5").attr("selected","selected");
+                            }else if('学习' == $("#person_table").datagrid("getSelected").hobbys){
+                                $(".o6").attr("selected","selected");
+                            }else {
+                                $(".o7").attr("selected","selected");
+                            };
                             if ('男'==$("#person_table").datagrid("getSelected").sex){
                                 $("#person_edit :radio:eq(0)").attr("checked","checked")
                             }else{
                                 $("#person_edit :radio:eq(1)").attr("checked","checked")
-                            }
+                            };
                         }
                     });
                 }else {
@@ -87,11 +110,13 @@
         });
 
         $('#person_update').dialog('refresh', 'new_content.php');
+        $('#person_add').dialog('refresh', 'new_content.php');
 
     })
 </script>
 <table id="person_table"></table>
 <div id="person_update">Dialog Content.</div>
+<div id="person_add">Dialog Content.add</div>
 </body>
 
 </html>

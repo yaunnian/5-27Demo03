@@ -47,4 +47,15 @@ public class PersonServiceImpl implements PersonService {
         }
         return index;
     }
+
+    public int addses(String name, String sex, String hobbys, String none) {
+        int index=0;
+        String arr[]={"读书","音乐","舞蹈","锤人","打游戏","学习","敲代码"};
+        for (int i=0;i<arr.length;i++){
+            if(arr[i].equals(hobbys)){
+                index=personMapper.addses(name,sex,i,none);
+            }
+        }
+        return index;
+    }
 }
