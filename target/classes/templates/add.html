@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增</title>
+</head>
+<body>
+<div style="padding:10px;margin: 0 auto">
+    信息管理 >> 用户新增
+    <hr>
+    <form align="center" action="#" method="post" id="person_insert">
+        <table align="center">
+            <tr>
+                <td >用户名:</td>
+                <td>
+                    <input style="width: 200px" class="easyui-textbox" type="text" name="name">
+                </td>
+            </tr>
+            <tr>
+                <td>性别:</td>
+                <td>
+                    <input type="radio"  name="sex" value="男" checked="checked" >男
+                    <input type="radio"  name="sex" value="女"  >女
+                </td>
+            </tr>
+            <tr>
+                <td >爱好:</td>
+                <td>
+                    <!-- <input style="border: 1px #b7d2ff solid;width: 250px;height: 37px"  type="text"  name="hobbys">-->
+                    <select class="easyui-combobox" style="width: 200px" name="hobbys">
+                        <option class="o1" value="读书">读书</option>
+                        <option class="o2" value="音乐">音乐</option>
+                        <option class="o3" value="舞蹈">舞蹈</option>
+                        <option class="o4" value="锤人">锤人</option>
+                        <option class="o5" value="打游戏">打游戏</option>
+                        <option class="o6" value="学习">学习</option>
+                        <option class="o7" value="敲代码">敲代码</option>
+                    </select>
+                </td>
+            </tr>
+            <br>
+            <tr>
+                <td >备注:</td>
+                <td>
+                    <input style="border: 1px #b7d2ff solid;width: 200px;height: 37px"  type="text"  name="none">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <a id="add_submit"  href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">新增</a>
+                    <!--<input id="but1" style="font-size: 20px;width: 70px;height: 40px;margin-top: 30px;" type="submit" value="修改">-->
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#add_submit").click(function () {
+            $("#person_insert").form('submit',{
+                url:"insertese",
+                onSubmit:function () {
+
+                },
+                success:function (data) {
+                    if (data == 1){
+                        $.messager.show({
+                            title:'系统消息',
+                            msg:'新增成功',
+                            timeout:3000,
+                            showType:'slide'
+                        });
+                        $("#person_add").dialog("close");
+                        $("#person_table").datagrid("reload");
+                    }else {
+                        $.messager.alert("系统信息","操作错误");
+                    }
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>
