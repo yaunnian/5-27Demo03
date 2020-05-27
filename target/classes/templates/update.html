@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改页面</title>
+</head>
+
+<body>
+<div style="padding:10px;margin: 0 auto">
+    信息管理 >> 信息修改
+    <hr>
+<form align="center" action="#" method="post" id="person_edit">
+    <table align="center">
+            <input type="hidden" name="id">
+        <tr>
+            <td >用户名:</td>
+            <td>
+               <input style="border: 1px #b7d2ff solid;width: 250px;height: 37px" type="text" name="name">
+            </td>
+        </tr>
+        <tr>
+            <td>性别:</td>
+            <td>
+                <input type="radio"  name="sex" value="男"  >男
+                <input type="radio"  name="sex" value="女"  >女
+            </td>
+        </tr>
+        <tr>
+            <td >爱好:</td>
+            <td>
+                <input style="border: 1px #b7d2ff solid;width: 250px;height: 37px"  type="text"  name="hobbys">
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td >备注:</td>
+            <td>
+                <input style="border: 1px #b7d2ff solid;width: 250px;height: 37px"  type="text"  name="none">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a id="update_submit"  href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a>
+                <!--<input id="but1" style="font-size: 20px;width: 70px;height: 40px;margin-top: 30px;" type="submit" value="修改">-->
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#update_submit").click(function () {
+            $("#person_edit").form('submit',{
+                url:"updatess",
+                onSubmit:function () {
+
+                },
+                success:function (data) {
+                    if (data == 1){
+                        $.messager.show({
+                            title:'系统消息',
+                            msg:'修改成功',
+                            timeout:3000,
+                            showType:'slide'
+                        });
+                        $("#person_update").dialog("close");
+                        $("#person_table").datagrid("reload");
+                    }else{
+                        $.messager.alert("系统信息","请重新修改");
+                    }
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

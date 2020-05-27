@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north',title:'愿念管理系统'" style="height:100px;">
+    <div style="width: 400px;height: 60px;float: left;font-size:20px;line-height: 60px;padding-left: 30px">愿念</div>
+    <div style="width: 300px;height: 60px;float: right;font-size:20px;line-height: 60px">
+        <span  th:text="${users}">愿念</span>您好, 欢迎登陆!
+    </div>
+</div>
+<div data-options="region:'south',title:'声明',split:false" style="height:100px;">
+    <div style="height: 70px;line-height: 70px;text-align: center;color: grey">
+            Copyright &copy;2020愿念出品
+    </div>
+</div>
+<div data-options="region:'west',title:'菜单',split:false" style="width:150px;">
+    <ul id="main_tree"></ul>
+</div>
+<div data-options="region:'center',title:'内容'" style="padding:5px;background:#eee;">
+    <div id="main_tabs" class="easyui-tabs" style="width:500px;height:250px;" data-options="fit:true">
+        <div title="报表" style="padding:10px;">
+            <div style="width: 370px;height: 350px;float: left;" id="d1"></div>
+            <div style="width: 370px;height: 350px;float: left;" id="d2"></div>
+            <div style="width: 370px;height: 350px;float: left;" id="d3"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $('#main_tree').tree({
+        url:'showMenu',
+        onClick:function (node) {
+            if($("#main_tabs").tabs('getTab',node.text)==null){
+            $("#main_tabs").tabs('add',{
+                title:node.text,
+                selected:true,
+                href:node.attributes,
+                closable:true
+            })
+            }else{
+                $("#main_tabs").tabs('select',node.text);
+            }
+        }
+    });
+</script>
+<script type="text/javascript" src="js/main.js"></script>
+</html>

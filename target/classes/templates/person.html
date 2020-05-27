@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户页面</title>
+    <style type="text/css">
+        tr{
+            margin-top: 30px;
+        }
+        .t1{
+            font-size: 20px;
+        }
+        .c1{
+            width: 200px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        $('#person_table').datagrid({
+            url:'queryPerson',
+            columns:[
+                [
+                    {field:'id',title:'id',width:100,hidden:true,align:'center'},
+                    {field:'name',title:'姓名',width:100,align:'center'},
+                    {field:'sex',title:'性别',width:100,align:'center'},
+                    {field:'hobbys',title:'爱好',width:100,align:'center'},
+                    {field:'createtime',title:'时间',width:200,align:'center'},
+                    {field:'none',title:'备注',width:100,align:'center'},
+                    /*{field:'sdp',title:'操作',width:100,align:'center',
+                    formatter:function (value,row,index) {
+                        return "<a href='person/update' id=''></a>"
+                        '<a href="person/update">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;"<a href=delete?aid="+">""删除"</a>"'
+                    }}*/
+
+                ]
+            ],
+            fitColumns:true,
+            pagination:true,
+            pageList:[5,10,20,40],
+            striped:true,
+            rownumbers:true,
+            toolbar: [{
+                iconCls: 'icon-add',
+                text:'新增',
+                handler: function(){
+
+                }
+            },'-',{
+                iconCls: 'icon-remove',
+                text:'删除',
+                handler: function(){}
+            },'-',{
+                iconCls: 'icon-edit',
+                text:'修改',
+                handler: function(){
+                    if ($("#person_table").datagrid("getSelections").length==1){
+                    //修改弹出框
+                    $('#person_update').dialog({
+                        title: '修改',
+                        width: 500,
+                        height: 400,
+                        closed: false,
+                        cache: false,
+                        href: 'person/update',
+                        modal: true,
+                        onLoad:function () {
+                            $("#person_edit :text:eq(0)").val($("#person_table").datagrid("getSelected").name);
+                            $("#person_edit :text:eq(1)").val($("#person_table").datagrid("getSelected").hobbys);
+                            $("#person_edit :text:eq(2)").val($("#person_table").datagrid("getSelected").none);
+                            $("#person_edit :hidden:eq(0)").val($("#person_table").datagrid("getSelected").id);
+                            if ('男'==$("#person_table").datagrid("getSelected").sex){
+                                $("#person_edit :radio:eq(0)").attr("checked","checked")
+                            }else{
+                                $("#person_edit :radio:eq(1)").attr("checked","checked")
+                            }
+                        }
+                    });
+                }else {
+                    $.messager.alert("系统消息","<b style='font-size: 25px;font-family: 华文楷体'></b>请选择一行</b>")
+                    }
+                }
+            }]
+
+        });
+
+        $('#person_update').dialog('refresh', 'new_content.php');
+
+    })
+</script>
+<table id="person_table"></table>
+<div id="person_update">Dialog Content.</div>
+</body>
+
+</html>

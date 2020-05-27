@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>报表页面</title>
+    <style type="text/css">
+        div{
+            float: left;
+        }
+    </style>
+    <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+<div style="width: 400px;height: 400px" id="d1"></div>
+<div style="width: 400px;height: 400px" id="d2"></div>
+<div style="width: 400px;height: 400px" id="d3"></div>
+
+<!--<script  type="text/javascript">
+
+    $("#d1").highcharts({
+        chart:{
+            type:'column'
+        },
+        title:{
+            text:'第一次测试'
+        },
+        xAxis:{
+            title:{
+                text:'第一次测试x'
+            },
+            categories:[
+                '读书','唱歌','跳舞','打游戏','睡觉','敲代码'
+            ],
+            crosshair:true
+        },
+        yAxis:{
+            title:{
+                text:'数量'
+            }
+        },
+        series:[{
+            name:"数量",
+            data: [49, 71, 106, 129, 144, 176]
+        }]
+    });
+    $("#d2").highcharts({
+        chart:{
+            type:'pie'
+        },
+        title:{
+            text:'第2次测试'
+        },
+        series:[{
+            name:"数据占比",
+            data: [
+                ["读书",49],
+                ["唱歌",71],
+                ["跳舞",106],
+                ["打游戏",129],
+                ["睡觉",144],
+                ["敲代码",176]
+            ]
+        }]
+    });
+</script>-->
+</body>
+</html>
