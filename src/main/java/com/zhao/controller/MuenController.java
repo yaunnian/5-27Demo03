@@ -14,6 +14,9 @@ import java.util.List;
 public class MuenController {
     @Autowired
     private MuenServiceImpl muenService;
+    /*
+     *查询菜单
+     */
     @RequestMapping("showMenu")
     public @ResponseBody List<Muen> showMuen(){
         List<Muen> list=muenService.selAll();

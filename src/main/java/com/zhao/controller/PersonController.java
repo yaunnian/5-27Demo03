@@ -24,50 +24,77 @@ public class PersonController {
     private PersonServiceImpl personService;
     @Autowired
     private HobbyServiceImpl hobbyService;
+    /*
+    *修改窗口
+    */
     @RequestMapping("person/update")
     public String update(){
         return "update";
     }
+    /*
+     *新增窗口
+     */
     @RequestMapping("person/add")
     public String add(){
         return "add";
     }
-
+    /*
+     *报表
+     */
     @RequestMapping("/main")
-    public
-    String main(Model model){
+    public String main(Model model){
         return "main";
     }
+    /*
+     *用户窗口
+     */
     @RequestMapping("person")
     public String person(){
         return "person";
     }
-    @RequestMapping("addperson")
+
+   /* @RequestMapping("addperson")
     public String addperson(){
         return "addperson";
-    }
+    }*/
+
     @RequestMapping("data")
     public @ResponseBody String data(Model model){
         List<Hobby> list=hobbyService.queryAll();
         String json = JsonUtil.list2json(list);
         System.out.println("list"+json);
         return json;
-    }
+    }/*
+     *用户数据
+     */
     @RequestMapping("queryPerson")
     public @ResponseBody Page queryPerson(@RequestParam(defaultValue = "5")Integer rows, @RequestParam(defaultValue = "1")Integer page ){
         Page list=personService.queryPerson(rows,page);
         return list;
     }
-    @RequestMapping("insert")
+   /* @RequestMapping("insert")
     public String insert(String name,String sex,Long hobby,String none){
         personService.insert(new Person(name,sex,hobby,new Date(),none));
         return "redirect:person";
+    }*/
+    @RequestMapping("deletese")
+    public @ResponseBody int delete(String id){
+        System.out.println("id"+id);
+        if (id != null) {
+            int i = personService.delete(id);
+            if (i >0){
+                return 1;
+            }else {
+                return 0;
+            }
+        }else {
+            return 0;
+        }
     }
-    @RequestMapping("delete")
-    public String delete(Long aid){
-        personService.delete(aid);
-        return "redirect:person";
-    }
+
+   /*
+    *用户更新i
+    */
     @RequestMapping("updatess")
     public @ResponseBody int updatess(Integer id,String name,String sex,String hobbys,String none) {
         System.out.println("修改参数" + id + name + sex + hobbys + none);
@@ -78,6 +105,9 @@ public class PersonController {
             return 0;
         }
     }
+    /*
+     *用户新增
+     */
     @RequestMapping("insertese")
     public @ResponseBody int add(String name, String sex, String hobbys, String none){
         System.out.println("新增参数"+name + sex + hobbys + none);

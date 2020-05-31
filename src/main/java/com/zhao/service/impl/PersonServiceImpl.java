@@ -6,8 +6,10 @@ import com.zhao.pojo.Person;
 import com.zhao.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,8 +35,16 @@ public class PersonServiceImpl implements PersonService {
         personMapper.insert(person);
     }
 
-    public void delete(Long aid) {
-        personMapper.deleteByPrimaryKey(aid);
+    public int delete(String ids) {
+        int index=0;
+        List<String> list=new ArrayList<>();
+        for (String id:ids.split(",")){
+            list.add(id);
+        }
+        for (int i=0;i<list.size();i++) {
+            index= personMapper.Querydelete(Integer.parseInt(list.get(i)));
+        }
+        return index;
     }
 
     public int updatess(Integer id, String name, String sex, String hobbys, String none) {

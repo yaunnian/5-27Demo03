@@ -46,6 +46,7 @@
                 iconCls: 'icon-add',
                 text:'新增',
                 handler: function(){
+                    //新增弹出框
                     $('#person_add').dialog({
                         title:'新增',
                         width:500,
@@ -59,7 +60,43 @@
             },'-',{
                 iconCls: 'icon-remove',
                 text:'删除',
-                handler: function(){}
+                handler: function(){
+                    if ($("#person_table").datagrid("getSelections").length >= 1){
+                                $.messager.confirm('系统提示','是否删除？',function (isDel) {
+                                    if (isDel){
+                                        var rowObj=$("#person_table").datagrid('getSelections');
+                                        var arr=[];
+                                        for (var  i = 0; i < rowObj.length; i ++){
+                                            arr[i]=rowObj[i].id;
+                                        }
+                                        ids=arr.join(",");
+                                            $.ajax({
+                                                type:'post',
+                                                url:'deletese',
+                                                dataType:"json",
+                                                data:{"id":ids},
+                                                success:function (data) {
+                                                    if (data == 1){
+                                                        $.messager.show({
+                                                            title:'系统消息',
+                                                            msg:'删除成功',
+                                                            timeout:3000,
+                                                            showType:'slide'
+                                                        });
+                                                        $("#person_table").datagrid("reload");
+                                                    }
+                                                   else {
+                                                        $.messager.alert("系统信息","请稍后再尝试操作");
+                                                    }
+                                                }
+                                            })
+
+                                    }
+                                })
+                    }else{
+                        $.messager.alert("系统提示","<b style='font-size: 25px;font-family: 华文楷体'>请至少选择一条数据</b>")
+                    }
+                }
             },'-',{
                 iconCls: 'icon-edit',
                 text:'修改',
@@ -102,7 +139,7 @@
                         }
                     });
                 }else {
-                    $.messager.alert("系统消息","<b style='font-size: 25px;font-family: 华文楷体'></b>请选择一行</b>")
+                    $.messager.alert("系统消息","<b style='font-size: 25px;font-family: 华文楷体'>请选择一行</b>")
                     }
                 }
             }]
@@ -112,11 +149,13 @@
         $('#person_update').dialog('refresh', 'new_content.php');
         $('#person_add').dialog('refresh', 'new_content.php');
 
-    })
+    });
+
 </script>
 <table id="person_table"></table>
-<div id="person_update">Dialog Content.</div>
-<div id="person_add">Dialog Content.add</div>
+<div id="person_update"></div>
+<div id="person_add"></div>
+<div id="person_delete"></div>
 </body>
 
 </html>

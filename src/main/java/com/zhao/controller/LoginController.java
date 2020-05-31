@@ -16,10 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
     @Autowired
     private UserServiceImpl userService;
+    /*
+     *登录页面
+     */
     @RequestMapping("/login")
     public String login(){
         return "login";
     }
+    /**
+     * 验证登录信息
+     * */
     @RequestMapping("toLogin")
     public  String toLogin(String name, String password, Model model){
         System.out.println("name"+name +"password"+password);

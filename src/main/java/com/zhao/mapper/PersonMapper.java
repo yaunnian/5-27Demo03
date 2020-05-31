@@ -1,6 +1,7 @@
 package com.zhao.mapper;
 
 import com.zhao.pojo.Person;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -17,4 +18,6 @@ public interface PersonMapper extends Mapper<Person> {
     int updatess(Integer id, String name, String sex, int i, String none);
     @Insert("insert into person(id,name,sex,hobby,createtime,none) values ( null,#{name},#{sex},#{i},CURRENT_TIMESTAMP,#{none} )")
     int addses(String name, String sex, int i, String none);
+    @Delete("delete from person where id=#{id} ")
+    int Querydelete(Integer id);
 }
